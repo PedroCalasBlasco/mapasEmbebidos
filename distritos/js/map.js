@@ -20,18 +20,10 @@ var distritos = L.tileLayer.wms(distritosWms, {
   
 }).addTo(map);
 
-
-// var osm = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-//         attribution:
-//             '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-//     }).addTo(map);
-    
-
   proj4.defs(
       "EPSG:22185",
       "+proj=tmerc +lat_0=-90 +lon_0=-60 +k=1 +x_0=5500000 +y_0=0 +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs"
   );
-
 
 
 fetch(oficinas)
@@ -41,8 +33,8 @@ fetch(oficinas)
         pointToLayer: function (feature, latlng) { 
             return L.circleMarker(latlng, {
                 radius: 5,
-                fillColor: "#3388ff",
-                color: "#3388ff"
+                fillColor: "red",
+                color: "red"
             });
         },
         onEachFeature: function (feature, layer) {
