@@ -40,7 +40,7 @@ fetch(oficinas)
     layer = L.Proj.geoJson(data, {
         pointToLayer: function (feature, latlng) { 
             return L.circleMarker(latlng, {
-                radius: 4,
+                radius: 5,
                 fillColor: "#3388ff",
                 color: "#3388ff"
             });
@@ -48,6 +48,7 @@ fetch(oficinas)
         onEachFeature: function (feature, layer) {
             return layer.bindPopup(` <h5>${feature.properties.name}</h5><hr><p>${feature.properties.dirección}</p> 
                <p>${feature.properties.descriptio} hs</p><p>${feature.properties.caja} hs</p>
+               <p>${feature.properties["e-mail"]} hs</p>
                <p>Teléfono: ${feature.properties.teléfono}</p>`);
         },
     }).addTo(map);
