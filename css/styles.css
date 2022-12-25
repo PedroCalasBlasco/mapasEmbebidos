@@ -13,3 +13,11 @@
 #map {
     height: 100vh;
 }
+
+#selectsWfsContainer{
+    display: none;
+}
+
+#selectsWmsContainer{
+    display: none;
+}
