@@ -26,12 +26,12 @@
         <h3 class="text-center mt-2"> Mapas Embebidos Municipalidad de Santa Fe</h3>
     </header>
 
-    <div class="container" style="height: 56vh;">
+    <div class="container" >
         <div class="row mt-3">
-            <div class="col col-12 col-md-6 col-xl-6 ">
+            <div class="col col-12 col-md-12 col-xl-12 text-center ">
                 <p>Mapa Base</p>
-                <div class="row">
-                    <div class="col col-8">
+                <div class="row justify-content-center">
+                    <div class="col col-4 text-center">
                         <select class="form-select" aria-label="Default select example" required id="baseSelect" onchange="onSelectBase()">
                             <option selected value="">Añadir Mapa Base</option>
                             <option value="true">Sí</option>
@@ -50,101 +50,102 @@
                     </div>
                 </div>
             </div>
-            <div class="col col-12 col-md-6 col-xl-6 ">
+        </div>
+    </div>
+    <div class="container" >
+        <div class="row mt-3">
+            <div class="col col-12 col-md-12 col-xl-12 mt-3 text-center ">
                 <p>Capas</p>
-                <div class="row">
-                    <div class="col col-8">
+                <div class="row justify-content-center">
+                    <div class="col col-4 text-center">
                         <select class="form-select" aria-label="Default select example" id="selectService" onchange="onSelectService()" required>
                             <option selected value="">Elige un Servicio</option>
                             <option value="wms">WMS</option>
                             <option value="wfs">WFS</option>
                         </select>
-                    </div>
-                </div>
-                <div class="row justify-content-center mt-4" id="selectsWfsContainer">
-                    <form class="row g-3" method="dialog" >
-                        <div class="col col-12 col-md-6 col-xl-6 mt-2">
-                            <select class="form-select" aria-label="Default select example" id="selectFormat" required>
-                                <option selected value="">Elige Formato de Salida</option>
-                                <option value="json">json</option>
+                        <div id="selectsWfsContainer">
+                            <form class="row justify-content-center" method="dialog" >
+                                <div class="col col-12 col-md-12 col-xl-12 mt-4">
+                                    <select class="form-select col-4" aria-label="Default select example" id="selectFormat" required>
+                                        <option selected value="">Elige Formato de Salida</option>
+                                        <option value="json">json</option>
+                                
+                                    </select>
+                                </div>
+                                <div class="col col-12 col-md-12 col-xl-12 mt-4">
+                                    <select class="form-select" aria-label="Default select example" id="selectRequest" required>
+                                        <option selected value="">Elige Tipo de Request</option>
+                                        <option value="GetFeature">GetFeature</option>
+                                    </select>
+                                </div>
+                            
+                                <div class="col col-12 col-md-12 col-xl-12 mt-4">
+                                    <label for="selectColor" class="form-label">Selecciona Color</label> <br>
+                                    <input type="text" data-coloris id="selectColor" class="form-control mt-0">
+                                </div>
+
+                                <div class="col col-12 col-md-12 col-xl-12 mt-4">
+                                    <label for="selectColor" class="form-label"></label>
+                                    <select class="form-select mt-2" aria-label="Default select example" id="selectGeometry" required>
+                                        <option selected>Elige Tipo de Geometría</option>
+                                        <option value="point">Puntos</option>
+                                        <option value="line">Lineas</option>
+                                        <option value="polygon">Polígonos</option>
+                                    </select>
+                                </div>
+
+                                <div class="col col-12 col-md-12 col-xl-12 mt-4">
+                                        <label for="inputVersion">Versión</label>
+                                        <input type="text" class="form-control mt-1" placeholder="ej..1.1.0" id="inputVersion" required>
+                                </div>  
+                                <div class="col col-12 col-md-12 col-xl-12 mt-4">
+                                        <label for="">Elige TypeName</label>
+                                        <input type="text" class="form-control" placeholder="ej...oficinas_de_distritos" id="inputType" required>
+                                    
+                                </div>
+                            
+                                <div class="col col-12 col-md-12 col-xl-12 mt-4">
+                                    <button class="btn btn-success" type="button" onclick="loadNewLayer()" id="wfsButton"> Cargar Layer</button>
+                                </div> 
+                            </form>
                         
-                            </select>
                         </div>
-                        <div class="col col-12 col-md-6 col-xl-6 mt-2">
-                            <select class="form-select" aria-label="Default select example" id="selectRequest" required>
-                                <option selected value="">Elige Tipo de Request</option>
-                                <option value="GetFeature">GetFeature</option>
-                            </select>
+                        <div id="selectsWmsContainer">
+                            <form  class="row " >
+                                <div class="col col-12 col-md-12 col-xl-12 mt-4">
+                                    <select class="form-select" aria-label="Default select example" required id="selectFormatWms">
+                                        <option selected  value="">Elige Formato de Salida</option>
+                                        <option value="image/jpeg">JPEG</option>
+                                    </select>
+                                </div>
+                                <div class="col col-12 col-md-12 col-xl-12 mt-4">
+                                    <select class="form-select" aria-label="Default select example" required id="selectTransparency">
+                                        <option selected>Es transparente</option>
+                                        <option value="true">Sí</option>
+                                        <option value="false">No</option>
+                                    </select>
+                                </div>
+                                <div class="col col-12 col-md-12 col-xl-12 mt-4">
+                                    <label for="">Elige Nombre layer</label>
+                                    <input type="text" class="form-control" required placeholder="ej...distrito" id="inputLayerWms">
+                                </div>
+                                <div class="col col-12 col-md-12 col-xl-12 mt-4">
+                                        <label for="">Versión</label>
+                                        <input type="text" class="form-control" placeholder="ej..1.1.0" id="inputVersionWms" required>
+                                </div>  
+                                <div class="col col-12 col-md-12 col-xl-12 mt-4 text-center">
+                                    <button class="btn btn-success" type="button" onclick="loadNewLayer()" id="wmsButton"> Cargar Layer</button>
+                                </div>   
+                            </form>
                         </div>
-                       
-                        <div class="col col-12 col-md-6 col-xl-6 mt-3">
-                            <label for="selectColor" class="form-label">Selecciona Color</label>
-                            <input type="text" data-coloris id="selectColor" class="form-control mt-0">
-                        </div>
-
-                        <div class="col col-12 col-md-6 col-xl-6 mt-3">
-                            <label for="selectColor" class="form-label"></label>
-                            <select class="form-select mt-2" aria-label="Default select example" id="selectGeometry" required>
-                                <option selected>Elige Tipo de Geometría</option>
-                                <option value="point">Puntos</option>
-                                <option value="line">Lineas</option>
-                                <option value="polygon">Polígonos</option>
-                            </select>
-                        </div>
-
-                        <div class="col col-12 col-md-6 col-xl-6 mt-3">
-                                <label for="inputVersion">Versión</label>
-                                <input type="text" class="form-control mt-1" placeholder="ej..1.1.0" id="inputVersion" required>
-                            
-                        </div>  
-                        <div class="col col-12 col-md-6 col-xl-6 mt-4">
-                                <label for="">Elige TypeName</label>
-                                <input type="text" class="form-control" placeholder="ej...sitmax:oficinas_de_distritos" id="inputType" required>
-                            
-                        </div>
-                      
-                        <div class="col col-12 col-md-6 col-xl-6 mt-4">
-                            <button class="btn btn-success" type="button" onclick="loadNewLayer()" id="wfsButton"> Cargar Layer</button>
-                        </div> 
-                    </form>
-                  
-                </div>
-                <div class="row justify-content-center mt-4" id="selectsWmsContainer">
-                    <form  class="row g-3" >
-                        <div class="col col-12 col-md-6 col-xl-6 mt-3">
-                            <select class="form-select" aria-label="Default select example" required id="selectFormatWms">
-                                <option selected  value="">Elige Formato de Salida</option>
-                                <option value="image/jpeg">JPEG</option>
-                            </select>
-                        </div>
-                        <div class="col col-12 col-md-6 col-xl-6 mt-3">
-                            <select class="form-select" aria-label="Default select example" required id="selectTransparency">
-                                <option selected>Es transparente</option>
-                                <option value="true">Sí</option>
-                                <option value="false">No</option>
-                            </select>
-                        </div>
-                        <div class="col col-12 col-md-6 col-xl-6">
-                            <label for="">Elige Nombre layer</label>
-                            <input type="text" class="form-control" required placeholder="ej...distrito" id="inputLayerWms">
-                        </div>
-                        <div class="col col-12 col-md-6 col-xl-6">
-                                <label for="">Versión</label>
-                                <input type="text" class="form-control" placeholder="ej..1.1.0" id="inputVersionWms" required>
-                        </div>  
-                        <div class="col col-12 col-md-6 col-xl-6 mt-4 text-center">
-                            <button class="btn btn-success" type="button" onclick="loadNewLayer()" id="wmsButton"> Cargar Layer</button>
-                        </div>   
-                    </form>
-                </div>
             </div>
         </div>
     </div>
 
 
-    <section class="container">
-        <div class="row align-items-center">
-            <div class="col col-12 col-md-6">
+    <section class="container mt-5">
+        <div class="row align-items-center justify-content-center">
+            <div class="col col-12 col-md-6 mb-4">
                 <p>Capas Cargadas</p>
                 <table class="table table-striped">
                     <thead>
@@ -158,7 +159,7 @@
                     </tbody>                        
                 </table>
             </div>
-            <div class="col col-12 col-md-6 mt-5 text-center">
+            <div class="col col-12 col-md-12 mt-5 text-center">
                 <button class="btn btn-success" onclick="goToMap()">
                     Ir a Mapa Generado
                </button>

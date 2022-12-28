@@ -43,26 +43,31 @@ function onSelectBase(){
 let contadorMapas = 0
 
 function loadMapBase(){
+
+    bodyTable.innerHTML = ""
+
     if(selectMap.value == "osm"){
         contadorMapas++
         params += "layerBase=osm&"
-        bodyTable.innerHTML += `<tr><th>Open Street Map</th><th></th><th class="text-center"><button class="btn btn-sm btn-danger"><i class="bi-trash"></i><button></th></tr>`
+        bodyTable.innerHTML += `<tr><th>Open Street Map</th><th></th><th class="text-center"><button class="btn btn-sm btn-danger"><i class="bi-trash"></i></button></th></tr>`
     }
     if(selectMap.value == "satelite"){
         contadorMapas++
         params += "layerBase=satelite&"
-        bodyTable.innerHTML += `<tr><th>Satélite</th><th></th><th class="text-center"><button class="btn btn-sm btn-danger"><i class="bi-trash"></i><button></th></tr>`
+        bodyTable.innerHTML += `<tr><th>Satélite</th><th></th><th class="text-center"><button class="btn btn-sm btn-danger"><i class="bi-trash"></i></button></th></tr>`
     }
     if(selectMap.value == "dark"){
         contadorMapas++
         params += "layerBase=dark&"
-        bodyTable.innerHTML += `<tr><th>Dark</th><th></th><th class="text-center"><button class="btn btn-sm btn-danger"><i class="bi-trash"></i><button></th></tr>`
+        bodyTable.innerHTML += `<tr><th>Dark</th><th></th><th class="text-center"><button class="btn btn-sm btn-danger"><i class="bi-trash"></i></button></th></tr>`
     }
     if(selectMap.value == "light"){
         contadorMapas++
         params += "layerBase=light&"
-        bodyTable.innerHTML += `<tr><th>Light</th><th></th><th class="text-center"><button class="btn btn-sm btn-danger"><i class="bi-trash"></i><button></th></tr>`
+        bodyTable.innerHTML += `<tr><th>Light</th><th></th><th class="text-center"><button class="btn btn-sm btn-danger"><i class="bi-trash"></i></button></th></tr>`
     }
+
+    console.log(bodyTable)
 
     if(contadorMapas >= 1){
         mapBaseButton.disabled = true
@@ -97,13 +102,13 @@ function loadNewLayer(){
         contadorLayers++
         params += `layer${contadorLayers}=version:${inputVersion.value}-service:wfs-request:${selectRequest.value}-typeName:${inputType.value}-outputFormat:${selectFormat.value}-color:${color}-geometry:${selectGeometry.value}&`
 
-        bodyTable.innerHTML += `<tr><td>${inputType.value}</td><td>WFS</td><td class="text-center"><button class="btn btn-sm btn-danger"><i class="bi-trash"></i><button></td></tr>`    
+        bodyTable.innerHTML += `<tr><td>${inputType.value}</td><td>WFS</td><td class="text-center"><button class="btn btn-sm btn-danger"><i class="bi-trash"></i></button></td></tr>`    
     }
 
     if(selectService.value == "wms"){
         contadorLayers++
         params += `layer${contadorLayers}=versionWms:${inputVersionWms.value}-serviceWms:wms-formatWms:${selectFormatWms.value}-layerWms:${inputLayerWms.value}-transparency:${selectTransparency.value}&`
-        bodyTable.innerHTML += `<tr><td>${inputLayerWms.value}</td><td>WMS</td><td class="text-center"><button class="btn btn-sm btn-danger"><i class="bi-trash"></i><button></td></tr>`
+        bodyTable.innerHTML += `<tr><td>${inputLayerWms.value}</td><td>WMS</td><td class="text-center"><button class="btn btn-sm btn-danger"><i class="bi-trash"></i></button></td></tr>`
     }
 
     selectsWfsContainer.style.display = "none"

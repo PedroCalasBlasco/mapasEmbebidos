@@ -166,12 +166,13 @@ wfsLayers.map((item) => {
                     color: color
                 });
             },
-            // onEachFeature: function (feature, layer) {
-            //     return layer.bindPopup(` <h5>${feature.properties.name}</h5><hr><p>${feature.properties.dirección}</p> 
-            //     <p>${feature.properties.descriptio} hs</p><p>${feature.properties.caja} hs</p>
-            //     <p>${feature.properties["e-mail"]} hs</p>
-            //     <p>Teléfono: ${feature.properties.teléfono}</p>`);
-            // },
+            onEachFeature: function (feature, layer) {
+                let htmlPopup = "";
+                for(var key in feature.properties){
+                    htmlPopup += `<p>${key}: ${feature.properties[key]}</p>`
+                }
+                return layer.bindPopup(htmlPopup);
+            },
         }).addTo(map);
     })
     .catch((err) => console.error(err));
