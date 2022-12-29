@@ -17,7 +17,7 @@
 
                 
     <link rel="stylesheet" href="css/styles.css" />
-
+ 
 
     <title>Mapas Embebidos Municipalidad de Santa Fe</title>
 </head>
@@ -52,7 +52,9 @@
             </div>
         </div>
     </div>
-    <div class="container" >
+
+
+    <div class="container">
         <div class="row mt-3">
             <div class="col col-12 col-md-12 col-xl-12 mt-3 text-center ">
                 <p>Capas</p>
@@ -69,19 +71,27 @@
                                     <select class="form-select col-4" aria-label="Default select example" id="selectFormat" required>
                                         <option selected value="">Elige Formato de Salida</option>
                                         <option value="json">json</option>
-                                
                                     </select>
+                                    <div class="invalid-feedback">
+                                        Todos los campos son obligatorios.
+                                    </div>
                                 </div>
                                 <div class="col col-12 col-md-12 col-xl-12 mt-4">
                                     <select class="form-select" aria-label="Default select example" id="selectRequest" required>
                                         <option selected value="">Elige Tipo de Request</option>
                                         <option value="GetFeature">GetFeature</option>
                                     </select>
+                                    <div class="invalid-feedback">
+                                        Todos los campos son obligatorios.
+                                    </div>
                                 </div>
                             
                                 <div class="col col-12 col-md-12 col-xl-12 mt-4">
                                     <label for="selectColor" class="form-label">Selecciona Color</label> <br>
                                     <input type="text" data-coloris id="selectColor" class="form-control mt-0">
+                                    <div class="invalid-feedback">
+                                        Todos los campos son obligatorios.
+                                    </div>
                                 </div>
 
                                 <div class="col col-12 col-md-12 col-xl-12 mt-4">
@@ -92,31 +102,42 @@
                                         <option value="line">Lineas</option>
                                         <option value="polygon">Polígonos</option>
                                     </select>
+                                    <div class="invalid-feedback">
+                                        Todos los campos son obligatorios.
+                                    </div>
                                 </div>
 
                                 <div class="col col-12 col-md-12 col-xl-12 mt-4">
                                         <label for="inputVersion">Versión</label>
                                         <input type="text" class="form-control mt-1" placeholder="ej..1.1.0" id="inputVersion" required>
+                                        <div class="invalid-feedback">
+                                            Todos los campos son obligatorios.
+                                        </div>
                                 </div>  
                                 <div class="col col-12 col-md-12 col-xl-12 mt-4">
                                         <label for="">Elige TypeName</label>
                                         <input type="text" class="form-control" placeholder="ej...oficinas_de_distritos" id="inputType" required>
-                                    
+                                        <div class="invalid-feedback">
+                                            Todos los campos son obligatorios.
+                                        </div>
                                 </div>
                             
                                 <div class="col col-12 col-md-12 col-xl-12 mt-4">
-                                    <button class="btn btn-success" type="button" onclick="loadNewLayer()" id="wfsButton"> Cargar Layer</button>
+                                    <button class="btn btn-success" type="button" onclick="loadNewLayer('wfs')" id="wfsButton"> Cargar Layer</button>
                                 </div> 
                             </form>
                         
                         </div>
                         <div id="selectsWmsContainer">
-                            <form  class="row " >
+                            <form class="row justify-content-center" >
                                 <div class="col col-12 col-md-12 col-xl-12 mt-4">
                                     <select class="form-select" aria-label="Default select example" required id="selectFormatWms">
                                         <option selected  value="">Elige Formato de Salida</option>
                                         <option value="image/jpeg">JPEG</option>
                                     </select>
+                                    <div class="invalid-feedback">
+                                        Todos los campos son obligatorios.
+                                    </div>
                                 </div>
                                 <div class="col col-12 col-md-12 col-xl-12 mt-4">
                                     <select class="form-select" aria-label="Default select example" required id="selectTransparency">
@@ -124,17 +145,26 @@
                                         <option value="true">Sí</option>
                                         <option value="false">No</option>
                                     </select>
+                                    <div class="invalid-feedback">
+                                        Todos los campos son obligatorios.
+                                    </div>
                                 </div>
                                 <div class="col col-12 col-md-12 col-xl-12 mt-4">
                                     <label for="">Elige Nombre layer</label>
                                     <input type="text" class="form-control" required placeholder="ej...distrito" id="inputLayerWms">
+                                    <div class="invalid-feedback">
+                                        Todos los campos son obligatorios.
+                                    </div>
                                 </div>
                                 <div class="col col-12 col-md-12 col-xl-12 mt-4">
                                         <label for="">Versión</label>
                                         <input type="text" class="form-control" placeholder="ej..1.1.0" id="inputVersionWms" required>
+                                        <div class="invalid-feedback">
+                                            Todos los campos son obligatorios.
+                                        </div>
                                 </div>  
                                 <div class="col col-12 col-md-12 col-xl-12 mt-4 text-center">
-                                    <button class="btn btn-success" type="button" onclick="loadNewLayer()" id="wmsButton"> Cargar Layer</button>
+                                    <button class="btn btn-success" type="button" onclick="loadNewLayer('wms')" id="wmsButton"> Cargar Layer</button>
                                 </div>   
                             </form>
                         </div>
@@ -145,7 +175,7 @@
 
     <section class="container mt-5">
         <div class="row align-items-center justify-content-center">
-            <div class="col col-12 col-md-6 mb-4">
+            <div class="col col-12 col-md-6 mb-4 text-center">
                 <p>Capas Cargadas</p>
                 <table class="table table-striped">
                     <thead>
@@ -171,7 +201,7 @@
    
 </body>
 
-    <script src="distritos/js/selects.js"></script>
+    <script src="js/selects.js"></script>
     
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
         integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"

@@ -44,8 +44,6 @@ if(params.layerBase){
         L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {attribution: '{attribution.OpenStreetMap} &copy; <a href="https://carto.com/attributions">CARTO</a>',ext: 'jpg',}).addTo(map);
     }
 
-
-   
     delete params.layerBase
 }
 
@@ -56,7 +54,7 @@ wfsLayers = []
 
 for(const [key, value] of Object.entries(params)){
     const arrayParams = value.split("-")
-    console.log(arrayParams)
+ 
     arrayParams.map((item) =>{
         if(item.split(":")[1] == "wms"){
             wmsLayers.push(value)
@@ -108,17 +106,12 @@ wmsLayers.map((item) => {
 
 let oficinass = "https://geoserver.santafeciudad.gov.ar/geoserver/sitmax/wfs?version=1.1.0&service=wfs&request=GetFeature&typeName=sitmax:oficinas_de_distritos&outputFormat=json"
 
-let oficinas2 = `https://geoserver.santafeciudad.gov.ar/geoserver/sitmax/${params.service}?version=${params.version}&service=wfs&
-request=${params.request}&typeName=sitmax:${params.typeName}&outputFormat=${params.outputFormat} `
-
-
-
 wfsLayers.map((item) => {
     
     const wfsParams = item.split("-")
     let service, version, request, typeName, outputFormat, color, geometry
 
-    console.log(wfsParams)
+
 
     wfsParams.map((it) => {
         if(it.split(":")[0] == "version"){
@@ -148,32 +141,67 @@ wfsLayers.map((item) => {
 
     let url = `https://geoserver.santafeciudad.gov.ar/geoserver/sitmax/${service}?version=${version}&service=wfs&request=${request}&typeName=sitmax:${typeName}&outputFormat=${outputFormat} `
     
-    console.log(oficinass)
-
-    console.log(url)
 
     fetch(url)
     .then((res) => res.json())
     .then((data) => {
 
-        console.log(data);
 
-        layer = L.Proj.geoJson(data, {
-            pointToLayer: function (feature, latlng) { 
-                return L.circleMarker(latlng, {
-                    radius: 5,
-                    fillColor: color,
-                    color: color
-                });
-            },
-            onEachFeature: function (feature, layer) {
-                let htmlPopup = "";
-                for(var key in feature.properties){
-                    htmlPopup += `<p>${key}: ${feature.properties[key]}</p>`
-                }
-                return layer.bindPopup(htmlPopup);
-            },
-        }).addTo(map);
+        if(geometry === "point"){
+            layer = L.Proj.geoJson(data, {
+                pointToLayer: function (feature, latlng) { 
+                    return L.circleMarker(latlng, {
+                        radius: 5,
+                        fillColor: color,
+                        color: color
+                    });
+                },
+                onEachFeature: function (feature, layer) {
+                    let htmlPopup = "";
+                    for(var key in feature.properties){
+                        htmlPopup += `<p>${key.charAt(0).toUpperCase()
+                            + key.slice(1)}: ${feature.properties[key]}</p>`
+                    }
+                    return layer.bindPopup(htmlPopup);
+                },
+            }).addTo(map);
+        }else if(geometry === "line"){
+            layer = L.Proj.geoJson(data, {
+                style: function(feature) {
+                    return {
+                      color: color,
+                      
+                    };
+                  },
+                onEachFeature: function (feature, layer) {
+                    let htmlPopup = "";
+                    for(var key in feature.properties){
+                        htmlPopup += `<p>${key.charAt(0).toUpperCase()
+                            + key.slice(1)}: ${feature.properties[key]}</p>`
+                    }
+                    return layer.bindPopup(htmlPopup);
+                },
+            }).addTo(map);
+
+        }else if(geometry === "polygon"){
+            layer = L.Proj.geoJson(data, {
+                style: function(feature) {
+                    return {
+                      color: color,
+                      
+                    };
+                  },
+                onEachFeature: function (feature, layer) {
+                    let htmlPopup = "";
+                    for(var key in feature.properties){
+                        htmlPopup += `<p>${key.charAt(0).toUpperCase()
+                            + key.slice(1)}: ${feature.properties[key]}</p>`
+                    }
+                    return layer.bindPopup(htmlPopup);
+                },
+            }).addTo(map);
+
+        }
     })
     .catch((err) => console.error(err));
 })

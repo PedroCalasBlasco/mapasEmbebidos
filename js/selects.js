@@ -28,7 +28,12 @@ const wmsButton = document.querySelector("#wmsButton")
 
 
 
-function onSelectBase(){
+function onSelectBase() {
+    
+    invalidFeedback.forEach(element => {
+        element.style.display = "none"
+    });
+
     if(baseSelect.value =="true"){
         selectMapContainer.style.display = "block"
     }
@@ -41,6 +46,8 @@ function onSelectBase(){
 }
 
 let contadorMapas = 0
+
+
 
 function loadMapBase(){
 
@@ -67,7 +74,6 @@ function loadMapBase(){
         bodyTable.innerHTML += `<tr><th>Light</th><th></th><th class="text-center"><button class="btn btn-sm btn-danger"><i class="bi-trash"></i></button></th></tr>`
     }
 
-    console.log(bodyTable)
 
     if(contadorMapas >= 1){
         mapBaseButton.disabled = true
@@ -75,7 +81,12 @@ function loadMapBase(){
 }
 
 
-function onSelectService(){
+function onSelectService() {
+    
+ invalidFeedback.forEach(element => {
+                element.style.display = "none"
+            });
+
     if(selectService.value == "wfs"){
         selectsWfsContainer.style.display = "flex"
         selectsWmsContainer.style.display = "none"
@@ -94,8 +105,34 @@ function onSelectService(){
 let params = ""
 let contadorLayers = 0
 
-function loadNewLayer(){
+const invalidFeedback = document.querySelectorAll(".invalid-feedback")
 
+function loadNewLayer(protocol) {
+    
+    invalidFeedback.forEach(element => {
+                element.style.display = "none"
+            });
+
+    if (protocol === "wms") {
+        if (selectFormatWms.value === "" || inputLayerWms.value === "" || selectTransparency.value === "" ||
+            inputVersionWms.value === "" ) {
+                invalidFeedback.forEach(element => {
+                    element.style.display = "block"
+                });
+                return
+        }
+    }
+
+    
+    if (protocol === "wfs") {
+        if (selectFormat.value === "" || selectGeometry.value === "" || selectColor.value === "" ||
+            inputVersion.value === "" || inputType.value === "" || selectRequest.value === "") {
+                invalidFeedback.forEach(element => {
+                    element.style.display = "block"
+                });
+                return
+        }
+    }
 
     if(selectService.value == "wfs"){
         const color = selectColor.value.slice(1)
@@ -121,10 +158,23 @@ function loadNewLayer(){
         wmsButton.disabled = true;
     }
 
+    selectFormat.value = "";
+    selectGeometry.value = "";
+    selectColor.value = "";
+    inputVersion.value = "";
+    inputType.value = "";
+    selectRequest.value = "";
+    wfsButton.value = "";
+
+
+    selectFormatWms.value = "";
+    inputLayerWms.value = "";
+    selectTransparency.value = "";
+
 }
 
 function goToMap(){
-    window.location.href = `distritos/map.html?${params}`
+    window.location.href = `map.html?${params}`
 }
 
 
